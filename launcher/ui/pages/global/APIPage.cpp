@@ -209,6 +209,7 @@ void APIPage::applySettings()
 bool APIPage::apply()
 {
     applySettings();
+    APPLICATION->updateCapabilities();
     return true;
 }
 

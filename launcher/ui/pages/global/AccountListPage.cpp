@@ -53,9 +53,7 @@
 AccountListPage::AccountListPage(QWidget* parent) : QMainWindow(parent), ui(new Ui::AccountListPage)
 {
     ui->setupUi(this);
-    ui->listView->setEmptyString(
-        tr("Welcome!\n"
-           "Select \"Add Offline\" to create a local profile, or \"Add Microsoft\" to link your Microsoft account."));
+    ui->listView->setEmptyString(tr("No accounts added."));
     ui->listView->setEmptyMode(VersionListView::String);
     ui->listView->setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -83,11 +81,6 @@ AccountListPage::AccountListPage(QWidget* parent) : QMainWindow(parent), ui(new 
 
     updateButtonStates();
 
-    // Xbox authentication won't work without a client identifier, so disable the button if it is missing
-    if (~APPLICATION->capabilities() & Application::SupportsMSA) {
-        ui->actionAddMicrosoft->setVisible(false);
-        ui->actionAddMicrosoft->setToolTip(tr("No Microsoft Authentication client ID was set."));
-    }
 }
 
 AccountListPage::~AccountListPage()
@@ -129,6 +122,16 @@ void AccountListPage::listChanged()
 
 void AccountListPage::on_actionAddMicrosoft_triggered()
 {
+    if (APPLICATION->getMSAClientID().isEmpty()) {
+        const auto reply = QMessageBox::information(
+            this, tr("Microsoft sign-in setup"),
+            tr("Microsoft sign-in has not been configured for Sharpness Launcher yet. "
+               "Open Services to enter the Microsoft application client ID registered for this launcher."),
+            QMessageBox::Open | QMessageBox::Cancel, QMessageBox::Open);
+        if (reply == QMessageBox::Open && m_container)
+            m_container->selectPage("apis");
+        return;
+    }
     auto account = MSALoginDialog::newAccount(this);
     if (account) {
         m_accounts->addAccount(account);
