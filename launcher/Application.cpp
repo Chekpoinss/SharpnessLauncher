@@ -66,6 +66,7 @@
 #include "ui/pages/global/LauncherPage.h"
 #include "ui/pages/global/MinecraftPage.h"
 #include "ui/pages/global/ProxyPage.h"
+#include "ui/pages/global/AiPage.h"
 
 #include "ui/setupwizard/AutoJavaWizardPage.h"
 #include "ui/setupwizard/JavaWizardPage.h"
@@ -504,6 +505,13 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
         }
     }
 
+    m_aiDataLock = std::make_unique<QLockFile>(QDir(m_dataPath).filePath(".sharpness-ui.lock"));
+    if (!m_aiDataLock->tryLock()) {
+        showFatalErrorMessage(tr("Data directory is busy"), tr("Another Sharpness Launcher or AI operation is using this data directory."));
+        m_status = Application::Failed;
+        return;
+    }
+
     // init the logger
     {
         static const QString s_baseLogFile = BuildConfig.LAUNCHER_NAME + "-%0.log";
@@ -695,6 +703,8 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
         logModel->setOverflowMessage(tr("Cannot display this log since the log length surpassed %1 lines.").arg(logModel->getMaxLines()));
 
         // Folders
+        m_settings->registerSetting("AIEndpoint", "http://localhost:11434/v1/chat/completions");
+        m_settings->registerSetting("AIModel", "");
         m_settings->registerSetting("InstanceDir", "instances");
         m_settings->registerSetting("AdditionalInstanceDirs", QVariant(QStringList()));
         m_settings->registerSetting("LastUsedInstDirForNewInstance", "");
@@ -929,6 +939,7 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv)
             m_globalSettingsProvider->addPage<APIPage>();
             m_globalSettingsProvider->addPage<ExternalToolsPage>();
             m_globalSettingsProvider->addPage<ProxyPage>();
+            m_globalSettingsProvider->addPage<AiPage>();
         }
 
         PixmapCache::setInstance(new PixmapCache(this));

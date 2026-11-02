@@ -1,4 +1,8 @@
 Thumbs.db
+__pycache__/
+*.pyc
+aqtinstall.log
+/dist/
 *.kdev4
 .user
 .directory

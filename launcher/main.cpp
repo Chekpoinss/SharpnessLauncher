@@ -36,6 +36,8 @@
 #include <iostream>
 
 #include "Application.h"
+#include "ai/AiTools.h"
+#include <cstring>
 
 #if defined Q_OS_WIN32
 #include "console/WindowsConsole.h"
@@ -43,6 +45,11 @@
 
 int main(int argc, char* argv[])
 {
+    // Start MCP before QApplication, single-instance handling, or logging touches stdout.
+    for (int i = 1; i < argc; ++i) {
+        if (std::strcmp(argv[i], "--mcp") == 0)
+            return Sharpness::AI::serve(argc, argv);
+    }
 #if defined Q_OS_WIN32
     // used on Windows to attach the standard IO streams
     console::WindowsConsoleGuard _consoleGuard;
@@ -56,7 +63,7 @@ int main(int argc, char* argv[])
             Q_INIT_RESOURCE(multimc);
             Q_INIT_RESOURCE(backgrounds);
             Q_INIT_RESOURCE(documents);
-            Q_INIT_RESOURCE(prismlauncher);
+            Q_INIT_RESOURCE(sharpnesslauncher);
 
             Q_INIT_RESOURCE(pe_dark);
             Q_INIT_RESOURCE(pe_light);

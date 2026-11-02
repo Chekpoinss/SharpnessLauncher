@@ -3,6 +3,7 @@ include(ECMMarkAsTest)
 include(ECMMarkNonGuiExecutable)
 
 set(TEST_SOURCES
+    OfflineAccount_test.cpp
     FileSystem_test.cpp
     GZip_test.cpp
     GradleSpecifier_test.cpp

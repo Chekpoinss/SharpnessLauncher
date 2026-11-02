@@ -5,6 +5,8 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  push:
+    branches: [main, develop, 'feature/**']
   merge_group:
     types: [checks_requested]
   pull_request:
@@ -81,7 +83,7 @@ jobs:
 
     env:
       ARTIFACT_NAME: ${{ matrix.artifact-name }}-Qt6
-      BUILD_PLATFORM: official
+      BUILD_PLATFORM: unofficial-ai-fork
       BUILD_TYPE: ${{ inputs.build-type || 'Debug' }}
       CMAKE_PRESET: ci
 
@@ -125,6 +127,13 @@ jobs:
           MSYS2_PATH_TYPE: inherit
         run: |
           ctest --preset "$CMAKE_PRESET" --build-config "$BUILD_TYPE"
+
+      - name: Test native AI integration
+        env:
+          QT_QPA_PLATFORM: offscreen
+          MSYS2_PATH_TYPE: inherit
+        run: |
+          python tools/test_ai.py --config "$BUILD_TYPE"
 
       ##
       # PACKAGE

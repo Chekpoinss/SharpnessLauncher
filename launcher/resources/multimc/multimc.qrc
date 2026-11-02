@@ -2,6 +2,7 @@
 <RCC version="1.0">
     <qresource prefix="/icons/multimc">
         <file>index.theme</file>
+        <file>scalable/sharpness-ai.svg</file>
 
         <!-- REDDIT logo icon, needs reddit license! -->
         <file>scalable/reddit-alien.svg</file>

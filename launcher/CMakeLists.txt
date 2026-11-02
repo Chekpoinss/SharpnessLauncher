@@ -5,6 +5,10 @@ project(application)
 ######## Sources and headers ########
 
 set(CORE_SOURCES
+    ai/AiTools.cpp
+    ai/AiTools.h
+    ui/pages/global/AiPage.h
+    ui/pages/global/AiPage.cpp
     # LOGIC - Base classes and infrastructure
     BaseVersionList.h
     BaseVersionList.cpp

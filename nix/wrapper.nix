@@ -130,7 +130,7 @@ symlinkJoin {
 
     in
     [
-      "--set NIX_LAUNCHER_WRAPPER ${placeholder "out"}/bin/prismlauncher"
+      "--set NIX_LAUNCHER_WRAPPER ${placeholder "out"}/bin/sharpnesslauncher"
       "--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [

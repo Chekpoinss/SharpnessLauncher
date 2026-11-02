@@ -212,6 +212,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
         ui->actionFoldersButton->setMenu(ui->foldersMenu);
         foldersMenuButton->setPopupMode(QToolButton::InstantPopup);
 
+        auto* aiAction = ui->mainToolBar->addAction(QIcon::fromTheme("sharpness-ai", QIcon(":/icons/multimc/scalable/sharpness-ai.svg")), tr("AI Assistant"));
+        aiAction->setToolTip(tr("Ask about Minecraft, diagnose logs, or connect an AI agent"));
+        connect(aiAction, &QAction::triggered, this, [this] { APPLICATION->ShowGlobalSettings(this, "ai"); });
+
         helpMenuButton = dynamic_cast<QToolButton*>(ui->mainToolBar->widgetForAction(ui->actionHelpButton));
         ui->actionHelpButton->setMenu(new QMenu(this));
         ui->actionHelpButton->menu()->addActions(ui->helpMenu->actions());

@@ -45,6 +45,7 @@
 #include <QFlag>
 #include <QIcon>
 #include <QMutex>
+#include <QLockFile>
 #include <QUrl>
 
 #include "QObjectPtr.h"
@@ -262,6 +263,7 @@ class Application : public QApplication {
 
     QString m_rootPath;
     QString m_dataPath;
+    std::unique_ptr<QLockFile> m_aiDataLock;
     Status m_status = Application::StartingUp;
     Capabilities m_capabilities;
     bool m_portable = false;

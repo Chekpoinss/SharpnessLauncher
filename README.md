@@ -1,116 +1,41 @@
-<p align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/program_info/org.prismlauncher.PrismLauncher.logo-darkmode.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/program_info/org.prismlauncher.PrismLauncher.logo.svg">
-  <img alt="Prism Launcher" src="/program_info/org.prismlauncher.PrismLauncher.logo.svg" width="40%">
-</picture>
-</p>
+<p align="center"><img src="program_info/io.github.Chekpoinss.SharpnessLauncher.svg" width="112" alt="Sharpness Launcher"></p>
+<h1 align="center">Sharpness Launcher</h1>
+<p align="center">Minecraft Java Edition launcher with an integrated AI assistant and external agent support.</p>
 
-<p align="center">
-  Prism Launcher is a custom launcher for Minecraft that allows you to easily manage multiple installations of Minecraft at once.<br />
-  <br />This is a <b>fork</b> of the MultiMC Launcher and is <b>not</b> endorsed by it.
-</p>
+Sharpness Launcher is an independent fork of [Prism Launcher](https://github.com/PrismLauncher/PrismLauncher). It keeps instance management, modpacks, Java management and the familiar Qt interface, and adds AI tools in the same application.
 
-## Installation
+## Features
 
-- All downloads and instructions for Prism Launcher can be found on our [Website](https://prismlauncher.org/download).
-- Last build status can be found in the [GitHub Actions](https://github.com/PrismLauncher/PrismLauncher/actions) tab (this also includes the pull requests status).
+- Separate Minecraft instances, mod loaders, mods, resource packs and worlds.
+- Offline profiles without first adding a Microsoft account. Offline profiles cannot join servers that require Microsoft authentication.
+- **Settings → AI → Assistant**: ask your own local model or compatible provider about Minecraft, diagnose a crash, or plan a launcher feature.
+- Review instance context before sending it. Logs are optional, API keys stay in memory, and answers never automatically modify files.
+- **Settings → AI → External agents**: copy MCP configuration for your preferred client. The server is built into the launcher; no Python runtime is needed.
+- Native builds for Windows, Linux and macOS. Supported architecture combinations are defined in the [build workflow](.github/workflows/build.yml).
 
-<p align="center">
-<a href="https://repology.org/project/prismlauncher/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/prismlauncher.svg?columns=3" alt="Packaging status">
-</a>
-</p>
+## Getting started
 
-### Development Builds
+Use **Accounts → Add Offline** to create a local profile, then add an instance. Open **AI Assistant** on the toolbar to configure a model. For a local provider such as Ollama, the default URL is `http://localhost:11434/v1/chat/completions`; enter a model you have installed. For a remote provider, enter its complete HTTPS chat-completions URL, model and API key.
 
-Please understand that these builds are not intended for most users. There may be bugs, and other instabilities. You have been warned.
+Microsoft sign-in and CurseForge require application credentials issued to this fork at build time. Modrinth and offline profiles do not require those keys.
 
-There are development builds available through:
+## Build
 
-- [GitHub Actions](https://github.com/PrismLauncher/PrismLauncher/actions) (includes builds from pull requests opened by contributors)
-- [nightly.link](https://prismlauncher.org/nightly) (this will always point only to the latest version of develop)
+Clone with submodules, then use the CMake presets:
 
-These have debug information in the binaries, so their file sizes are relatively larger.
+```sh
+git submodule update --init --recursive
+cmake --preset default
+cmake --build --preset default --config Release
+ctest --preset default --build-config Release
+```
 
-Prebuilt Development builds are provided for **Linux**, **Windows** and **macOS**.
+Requires CMake 3.28+, Ninja, a C++23 compiler, JDK 17 and Qt 6.8+ with NetworkAuth, SVG, image formats and the modules listed in CMake. C++ dependencies are managed by vcpkg. On Windows, `tools/build-windows.ps1` configures Visual Studio Build Tools, builds, tests and creates a runnable `install` directory. Use `-QtRoot` for a custom Qt installation.
 
-On Linux, we also offer our own [Flatpak nightly repository](https://github.com/PrismLauncher/flatpak). Most software centers are able to install it by opening [this link](https://flatpak.prismlauncher.org/prismlauncher-nightly.flatpakref).
+See [FORK.md](FORK.md) for AI configuration, testing and architectural limits.
 
-## Community & Support
+## Credits and license
 
-Feel free to create a GitHub issue if you find a bug or want to suggest a new feature. We have multiple community spaces where other community members can help you:
+Based on Prism Launcher, PolyMC and MultiMC. The AI integration is inspired by [Horizon](https://github.com/horizon-rust/horizon)'s agent-control architecture and implemented independently for Minecraft Java Edition. Offline-account behavior was studied in [PrismLauncher-Cracked](https://github.com/Diegiwg/PrismLauncher-Cracked).
 
-- **Our Discord server:**
-
-[![Prism Launcher Discord server](https://discordapp.com/api/guilds/1031648380885147709/widget.png?style=banner3)](https://prismlauncher.org/discord)
-
-- **Our Matrix space:**
-
-[![Prism Launcher Space](https://img.shields.io/matrix/prismlauncher:matrix.org?style=for-the-badge&label=Matrix%20Space&logo=matrix&color=purple)](https://prismlauncher.org/matrix)
-
-- **Our Subreddit:**
-
-[![r/PrismLauncher](https://img.shields.io/reddit/subreddit-subscribers/prismlauncher?style=for-the-badge&logo=reddit)](https://prismlauncher.org/reddit)
-
-## Translations
-
-The translation effort for Prism Launcher is hosted on [Weblate](https://hosted.weblate.org/projects/prismlauncher/launcher/) and information about translating Prism Launcher is available at <https://github.com/PrismLauncher/Translations>.
-
-## Building
-
-If you want to build Prism Launcher yourself, check the [build instructions](https://prismlauncher.org/wiki/development/build-instructions).
-
-## Sponsors & Partners
-
-We thank all the wonderful backers over at Open Collective! Support Prism Launcher by [becoming a backer](https://opencollective.com/prismlauncher).
-
-[![OpenCollective Backers](https://opencollective.com/prismlauncher/backers.svg?width=890&limit=1000)](https://opencollective.com/prismlauncher#backers)
-
-Thanks to JetBrains for providing us a few licenses for all their products, as part of their [Open Source program](https://www.jetbrains.com/opensource/).
-
-<a href="https://jb.gg/OpenSource">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://www.jetbrains.com/company/brand/img/logo_jb_dos_4.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg">
-  <img alt="JetBrains logo" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" width="40%">
-</picture>
-</a>
-
-Thanks to Weblate for hosting our translation efforts.
-
-<a href="https://hosted.weblate.org/engage/prismlauncher/">
-<img src="https://hosted.weblate.org/widgets/prismlauncher/-/open-graph.png" alt="Translation status" width="300" />
-</a>
-
-Thanks to Netlify for providing us their excellent web services, as part of their [Open Source program](https://www.netlify.com/open-source/).
-
-<a href="https://www.netlify.com"> <img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Deploys by Netlify" /> </a>
-
-Thanks to the awesome people over at [MacStadium](https://www.macstadium.com/), for providing M1-Macs for development purposes!
-
-<a href="https://www.macstadium.com"><img src="https://uploads-ssl.webflow.com/5ac3c046c82724970fc60918/5c019d917bba312af7553b49_MacStadium-developerlogo.png" alt="Powered by MacStadium" width="300"></a>
-
-## Forking/Redistributing/Custom builds policy
-
-You are free to fork, redistribute and provide custom builds as long as you follow the terms of the [license](LICENSE) (this is a legal responsibility), and if you made code changes rather than just packaging a custom build, please do the following as a basic courtesy:
-
-- Make it clear that your fork is not Prism Launcher and is not endorsed by or affiliated with the Prism Launcher project (<https://prismlauncher.org>).
-- Go through [CMakeLists.txt](CMakeLists.txt) and change Prism Launcher's API keys to your own or set them to empty strings (`""`) to disable them (this way the program will still compile but the functionality requiring those keys will be disabled).
-
-If you have any questions or want any clarification on the above conditions please make an issue and ask us.
-
-If you are just building Prism Launcher for your distribution, please make sure to set the `Launcher_BUILD_PLATFORM` to a slug representing your distribution. Examples are `archlinux`, `fedora` and `nixpkgs`.
-
-Note that if you build this software without removing the provided API keys in [CMakeLists.txt](CMakeLists.txt) you are accepting the following terms and conditions:
-
-- [Microsoft Identity Platform Terms of Use](https://docs.microsoft.com/en-us/legal/microsoft-identity-platform/terms-of-use)
-- [CurseForge 3rd Party API Terms and Conditions](https://support.curseforge.com/en/support/solutions/articles/9000207405-curse-forge-3rd-party-api-terms-and-conditions)
-
-If you do not agree with these terms and conditions, then remove the associated API keys from the [CMakeLists.txt](CMakeLists.txt) file by setting them to an empty string (`""`).
-
-## License [![https://github.com/PrismLauncher/PrismLauncher/blob/develop/LICENSE](https://img.shields.io/github/license/PrismLauncher/PrismLauncher?label=License&logo=gnu&color=C4282D)](LICENSE)
-
-All launcher code is available under the GPL-3.0-only license.
-
-The logo and related assets are under the CC BY-SA 4.0 license.
+Code is licensed under [GPL-3.0-only](LICENSE). Existing third-party notices and upstream asset licenses remain applicable. Sharpness's new icon is provided under GPL-3.0-only. Sharpness Launcher is not affiliated with Prism Launcher, Mojang or Microsoft.
