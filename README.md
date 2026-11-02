@@ -15,6 +15,8 @@ Sharpness Launcher is an independent fork of [Prism Launcher](https://github.com
 
 ## Getting started
 
+For Windows x64, download the **Setup.exe** installer or the portable ZIP from the [latest preview release](https://github.com/Chekpoinss/SharpnessLauncher/releases/tag/windows-preview-1). The installer includes the required launcher libraries; Java and Minecraft instances are managed separately in the launcher.
+
 Use **Accounts → Add Offline** to create a local profile, then add an instance. Open **AI Assistant** on the toolbar to configure a model. For a local provider such as Ollama, the default URL is `http://localhost:11434/v1/chat/completions`; enter a model you have installed. For a remote provider, enter its complete HTTPS chat-completions URL, model and API key.
 
 Microsoft sign-in uses Prism Launcher's public application client ID by default, so Microsoft may identify the sign-in application as Prism Launcher. A custom client ID can be configured in Services or at build time. CurseForge requires an API key issued to this fork. Modrinth and offline profiles do not require those keys.
@@ -32,7 +34,17 @@ ctest --preset default --build-config Release
 
 Requires CMake 3.28+, Ninja, a C++23 compiler, JDK 17 and Qt 6.8+ with NetworkAuth, SVG, image formats and the modules listed in CMake. C++ dependencies are managed by vcpkg. On Windows, `tools/build-windows.ps1` configures Visual Studio Build Tools, builds, tests and creates a runnable `install` directory. Use `-QtRoot` for a custom Qt installation.
 
+To package that deployed Windows x64 directory as an installer, install [Inno Setup 6](https://jrsoftware.org/isdl.php) and run `ISCC /DBuildRoot="C:\path\to\install" /DOutputRoot="C:\path\to\artifacts" tools\windows-installer.iss`. This packages the existing executable and libraries without rebuilding them.
+
 See [FORK.md](FORK.md) for AI configuration, testing and architectural limits.
+
+## Contributors
+
+<a href="https://github.com/Chekpoinss"><img src="https://avatars.githubusercontent.com/u/128816566?s=96" width="64" height="64" alt="Chekpoinss"></a>
+
+[Chekpoinss](https://github.com/Chekpoinss) — creator and maintainer of Sharpness Launcher.
+
+Built with assistance from OpenAI Codex. See the [full contributor history](https://github.com/Chekpoinss/SharpnessLauncher/graphs/contributors) for the upstream developers and everyone who has contributed code.
 
 ## Credits and license
 
