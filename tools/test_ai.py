@@ -12,6 +12,7 @@ root = Path(__file__).resolve().parents[1]
 build = root / 'build'
 candidates = [build / args.config / 'sharpnesslauncher.exe', build / 'sharpnesslauncher.exe',
               build / args.config / 'sharpnesslauncher', build / 'sharpnesslauncher',
+              build / args.config / 'SharpnessLauncher.app/Contents/MacOS/sharpnesslauncher',
               build / 'SharpnessLauncher.app/Contents/MacOS/sharpnesslauncher']
 executable = next((path for path in candidates if path.is_file()), None)
 if executable is None:
