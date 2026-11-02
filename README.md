@@ -17,7 +17,7 @@ Sharpness Launcher is an independent fork of [Prism Launcher](https://github.com
 
 Use **Accounts → Add Offline** to create a local profile, then add an instance. Open **AI Assistant** on the toolbar to configure a model. For a local provider such as Ollama, the default URL is `http://localhost:11434/v1/chat/completions`; enter a model you have installed. For a remote provider, enter its complete HTTPS chat-completions URL, model and API key.
 
-Microsoft sign-in and CurseForge require application credentials issued to this fork at build time. Modrinth and offline profiles do not require those keys.
+Microsoft sign-in uses Prism Launcher's public application client ID by default, so Microsoft may identify the sign-in application as Prism Launcher. A custom client ID can be configured in Services or at build time. CurseForge requires an API key issued to this fork. Modrinth and offline profiles do not require those keys.
 
 ## Build
 

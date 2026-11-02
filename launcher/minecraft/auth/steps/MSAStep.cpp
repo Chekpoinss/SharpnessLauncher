@@ -114,7 +114,10 @@ class LoggingOAuthHttpServerReplyHandler final : public QOAuthHttpServerReplyHan
 MSAStep::MSAStep(AccountData* data, bool silent) : AuthStep(data), m_silent(silent)
 {
     m_clientId = APPLICATION->getMSAClientID();
-    if (QCoreApplication::applicationFilePath().startsWith("/tmp/.mount_") || APPLICATION->isPortable() || !isSchemeHandlerRegistered())
+    // The shared upstream registration does not register Sharpness's custom URI scheme.
+    const bool usesPrismRegistration = m_clientId == "c36a9fb6-4f2a-41ff-90bd-ae7cc92031eb";
+    if (usesPrismRegistration || QCoreApplication::applicationFilePath().startsWith("/tmp/.mount_") || APPLICATION->isPortable() ||
+        !isSchemeHandlerRegistered())
 
     {
         auto replyHandler = new LoggingOAuthHttpServerReplyHandler(this);
