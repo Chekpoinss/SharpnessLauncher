@@ -153,7 +153,7 @@ AiPage::AiPage(QWidget* parent) : QWidget(parent)
     auto* output = new QPlainTextEdit(agents);
     output->setReadOnly(true);
     agentLayout->addWidget(output, 1);
-    const auto update = [this, format, writes, output] {
+    const auto update = [format, writes, output] {
         QJsonArray args{ "--mcp", "--data-dir", APPLICATION->dataRoot() };
         if (writes->isChecked())
             args.append("--allow-write");
